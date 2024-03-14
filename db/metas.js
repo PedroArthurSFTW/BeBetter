@@ -14,7 +14,7 @@ const Metas = database.define("metas", {
   },
   descrica_meta: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 })
 module.exports = Metas

@@ -14,7 +14,7 @@ const Tarefas = database.define("tarefas", {
   },
   descricao_tarefa: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   concluida: {
     type: Sequelize.STRING,

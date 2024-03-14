@@ -18,7 +18,7 @@ const Habitos = database.define("habitos", {
   },
   descrica_habito: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 })
 module.exports = Habitos
