@@ -3,9 +3,15 @@ const Usuario = require("./models/usuario")
 var bodyParser = require("body-parser")
 const app = express()
 const path = require("path")
+const rotas = require("./rotas")
+const sequelize = require("./db")
+
+sequelize.sync().then(() => {
+  console.log("Banco conectado")
+})
 
 app.use(bodyParser.json())
-
+app.use(rotas)
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -21,7 +27,7 @@ app.listen(3000, () => {
 })
 
 app.get("/", (req, res) => {
-  res.render("index")
+  res.render("registro_usuario")
 })
 /*;async () => {
   const database = require("./db")

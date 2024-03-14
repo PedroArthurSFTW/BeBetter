@@ -4,8 +4,9 @@ const database = require("../db")
 const Usuario = database.define("usuario", {
   id_usuario: {
     type: Sequelize.INTEGER,
-    autoIncrement: false,
+    autoIncrement: true,
     allowNull: false,
+    primaryKey: true,
   },
   nome_usuario: {
     type: Sequelize.STRING,
@@ -22,10 +23,6 @@ const Usuario = database.define("usuario", {
   senha: {
     type: Sequelize.STRING,
     allowNull: false,
-  },
-  data_de_nascimento: {
-    type: Sequelize.DATE,
-    allowNull: true,
   },
   genero: {
     type: Sequelize.STRING,
