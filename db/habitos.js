@@ -12,5 +12,13 @@ const Habitos = database.define("habitos", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  dias_semana: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  descrica_habito: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 })
 module.exports = Habitos

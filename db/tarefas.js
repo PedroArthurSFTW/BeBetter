@@ -12,5 +12,17 @@ const Tarefas = database.define("tarefas", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  descricao_tarefa: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  concluida: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  importancia: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 })
 module.exports = Tarefas

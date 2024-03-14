@@ -27,6 +27,10 @@ const Usuario = database.define("usuario", {
     type: Sequelize.DATE,
     allowNull: false,
   },
+  genero: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 })
 
 module.exports = Usuario
