@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize")
-const database = require(".")
+const database = require("../db")
 const Usuario = require("./usuario")
 
 const Habitos = database.define("habitos", {
