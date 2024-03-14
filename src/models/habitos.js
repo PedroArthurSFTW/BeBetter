@@ -1,29 +1,25 @@
 const Sequelize = require("sequelize")
-const database = require("../db")
+const database = require(".")
 const Usuario = require("./usuario")
 
-const Tarefas = database.define("tarefas", {
-  id_tarefa: {
+const Habitos = database.define("habitos", {
+  id_habitos: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  nome_tarefa: {
+  nome_habito: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  descricao_tarefa: {
+  dias_semana: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  descrica_habito: {
     type: Sequelize.STRING,
     allowNull: true,
-  },
-  concluida: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  importancia: {
-    type: Sequelize.STRING,
-    allowNull: false,
   },
 })
 
@@ -31,4 +27,4 @@ Habitos.belongsTo(Usuario, {
   constraint: true,
   foreignKey: "fk_id_usuario",
 })
-module.exports = Tarefas
+module.exports = Habitos
