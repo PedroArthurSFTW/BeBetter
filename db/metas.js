@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize")
 const database = require("../db")
+const Usuario = require("./usuario")
 
 const Metas = database.define("metas", {
   id_metas: {
@@ -16,5 +17,10 @@ const Metas = database.define("metas", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+})
+
+Habitos.belongsTo(Usuario, {
+  constraint: true,
+  foreignKey: "fk_id_usuario",
 })
 module.exports = Metas

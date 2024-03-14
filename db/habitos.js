@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize")
 const database = require("../db")
+const Usuario = require("./usuario")
 
 const Habitos = database.define("habitos", {
   id_habitos: {
@@ -20,5 +21,10 @@ const Habitos = database.define("habitos", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+})
+
+Habitos.belongsTo(Usuario, {
+  constraint: true,
+  foreignKey: "fk_id_usuario",
 })
 module.exports = Habitos
