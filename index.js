@@ -30,6 +30,6 @@ app.get("/", (req, res) => {
   res.render("registro_usuario")
 })
 
-app.get("/registrohabito", (req, res) => {
+/*app.get("/n, (req, res) => {
   res.render("criar_habitos")
-})
+})*/

@@ -23,6 +23,26 @@ rotas.post("/registrousuario", async (req, res) => {
   res.render("index")
 })
 
+rotas.post("/logado", async (req, res) => {
+  const { email, senha } = req.body
+  try {
+    const usuario_log = await usuario.findOne({
+      where: { email },
+    })
+    if (!usuario_log) {
+      return res.status(404).send("Usuario não encontrado")
+    }
+    const senhaValida = await bcrypt.compare(senha, usuario_log.senha)
+    if (!senhaValida) {
+      return res.status(401).send("Senha Incorreta")
+    }
+    res.render("criar_habitos")
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("Erro ao efetuar o Login")
+  }
+})
+
 rotas.post("/registrarhabitos", async (req, res) => {
   const novoHabitos = req.body
   await habitos.create(novoHabitos)

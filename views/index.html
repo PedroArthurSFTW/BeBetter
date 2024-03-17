@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/logado" method="post">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        placeholder="Digite seu Email"
+        id="email"
+        name="email"
+      />
+      <label for="login-user-password">Senha</label>
+      <input
+        type="password"
+        placeholder="Digite sua senha"
+        id="senha"
+        name="senha"
+      />
+      <button type="submit">Entre</button>
+    </form>
+  </body>
 </html>
