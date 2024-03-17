@@ -1,7 +1,9 @@
 const express = require("express")
 const rotas = express.Router()
+const bcrypt = require("bcrypt")
 const usuario = require("./models/usuario")
 const habitos = require("./models/habitos")
+const session = require("express-session")
 var bodyParser = require("body-parser")
 
 rotas.use(bodyParser.json())
@@ -11,6 +13,10 @@ rotas.use(
   })
 )
 
+usuario.beforeCreate(async (usuario) => {
+  const senhaCripto = await bcrypt.hash(usuario.senha, 10)
+  usuario.senha = senhaCripto
+})
 rotas.post("/registrousuario", async (req, res) => {
   const novoUsuario = req.body
   await usuario.create(novoUsuario)
