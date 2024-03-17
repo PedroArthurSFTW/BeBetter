@@ -29,21 +29,7 @@ app.listen(3000, () => {
 app.get("/", (req, res) => {
   res.render("registro_usuario")
 })
-/*;async () => {
-  const database = require("./db")
-  const Usuario = require("./models/usuario")
-  const Metas = require("./models/metas")
-  const Tarefas = require("./models/tarefas")
-  const Habitos = require("./models/habitos")
-  await database.sync({ force: true })
-  const novoUsuario = await Usuario.create({
-    id_usuario: 1,
-    nome_usuario: "Cleitom",
-    idade: 22,
-    email: "Xitãozinho24",
-    senha: "123456",
-    genero: "Helicptero",
-  })
-  const usuario = await Usuario.findByPk(1)
-  console.log(usuario.nome_usuario)
-}*/
+
+app.get("/registrohabito", (req, res) => {
+  res.render("criar_habitos")
+})
