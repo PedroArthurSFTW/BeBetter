@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atividades do Dia</title>
+  </head>
+  <body>
+    <h1>Atividades do Dia</h1>
+    <!-- Metas não concluídas -->
+    <h2>Metas Não Concluídas</h2>
+    <ul>
+      <% metasNaoConcluidas.forEach(metas => { %>
+      <li>
+        <%= metas.nome_meta %> <% if (metas.descricao_meta) { %> - <%=
+        metas.descricao_meta %> <% } %>
+        <!-- Botão para marcar como concluída -->
+        <form
+          action="/marcar-meta-concluida/<%= metas.id_metas %>"
+          method="post"
+        >
+          <button type="submit">Marcar como Concluída</button>
+        </form>
+      </li>
+      <% }); %>
+    </ul>
+
+    <!-- Botão para mostrar metas concluídas -->
+    <form action="/mostrar-metas-concluidas" method="get">
+      <button type="submit">Mostrar Metas Concluídas</button>
+    </form>
+
+    <!-- Metas concluídas (inicialmente ocultas) 
+    <div id="metas-concluidas" style="display: none">
+      <h2>Metas Concluídas</h2>
+      <ul>
+        <% metasConcluidas.forEach(metas => { %>
+        <li>
+          <%= metas.nome_meta %> <% if (metas.descricao_meta) { %> - <%=
+          metas.descricao_meta %> <% } %>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
+
+    <script>
+      // Função para mostrar metas concluídas quando o botão for clicado
+      function mostrarMetasConcluidas() {
+        document.getElementById("metas-concluidas").style.display = "block"
+      }
+    </script>-->
+
+    <h2>Tarefas</h2>
+    <ul>
+      <% tarefas.forEach(tarefa => { %>
+      <li>
+        <%= tarefa.nome_tarefa %> <% if (tarefa.descricao_tarefa) { %> - <%=
+        tarefa.descricao_tarefa %> <% } %> <% if (tarefa.importancia) { %> -
+        Importância: <%= tarefa.importancia %> <% } %>
+        <!-- Verifica se a tarefa ainda não foi concluída -->
+        <% if (!tarefa.concluida) { %>
+        <!-- Botão para marcar como concluída -->
+        <form
+          action="/marcar-tarefa-concluida/<%= tarefa.id_tarefa %>"
+          method="post"
+        >
+          <button type="submit">Marcar como Concluída</button>
+        </form>
+        <% } %>
+        <!-- Botão para deletar -->
+        <form action="/deletar-tarefa/<%= tarefa.id_tarefa %>" method="post">
+          <button type="submit">Deletar</button>
+        </form>
+      </li>
+      <% }); %>
+    </ul>
+
+    <h2>Hábitos</h2>
+    <ul>
+      <% habito.forEach(habito => { %>
+      <li>
+        <%= habito.nome_habito %> <% if (habito.descricao_habito) { %> - <%=
+        habito.descricao_habito %> <% } %>
+      </li>
+      <% }); %>
+    </ul>
+    <form action="/log" method="get">
+      <button type="submit">Voltar</button>
+    </form>
+  </body>
+</html>

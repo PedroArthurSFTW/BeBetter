@@ -1,4 +1,5 @@
 const express = require("express")
+const Sequelize = require("sequelize")
 const rotas = express.Router()
 const bcrypt = require("bcrypt")
 const Usuario = require("./models/usuario")
@@ -157,4 +158,124 @@ rotas.post("/criar_metas", autenticacaoUsuario, async (req, res) => {
   }
 })
 
+rotas.get("/atividades-do-dia", autenticacaoUsuario, async (req, res) => {
+  try {
+    const userId = req.user.id_usuario // Obtém o ID do usuário autenticado
+    const dataAtual = new Date() // Obtém a data atual
+    const dataAtualSemHora = new Date(dataAtual.setHours(0, 0, 0, 0))
+    // Busca as tarefas do usuário para o dia atual
+    const tarefas = await Tarefas.findAll({
+      where: Sequelize.and(
+        Sequelize.where(
+          Sequelize.fn("DATE", Sequelize.col("dia_tarefa")),
+          "=",
+          Sequelize.fn("CURDATE")
+        ),
+        { fk_id_usuario: userId }
+      ),
+    })
+
+    // Busca os hábitos do usuário para o dia atual
+    const habito = await habitos.findAll({
+      where: Sequelize.and(
+        Sequelize.where(
+          Sequelize.fn("DATE", Sequelize.col("dia_semana")),
+          "=",
+          Sequelize.fn("CURDATE")
+        ),
+        { fk_id_usuario: userId }
+      ),
+    })
+
+    // Busca as metas não concluídas do usuário para o dia atual
+    const metasNaoConcluidas = await Metas.findAll({
+      where: { fk_id_usuario: userId, concluida: null },
+    })
+
+    // Busca as metas concluídas do usuário
+    const metasConcluidas = await Metas.findAll({
+      where: { fk_id_usuario: userId, concluida: true },
+    })
+
+    // Verifica se a consulta retornou resultados
+    // Renderiza o arquivo EJS com as tarefas, hábitos e metas do usuário para o dia atual
+    res.render("atividades-do-dia", {
+      tarefas,
+      habito,
+      metasNaoConcluidas,
+      metasConcluidas,
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("Erro ao buscar atividades do dia")
+  }
+})
+
+rotas.post(
+  "/marcar-tarefa-concluida/:id",
+  autenticacaoUsuario,
+  async (req, res) => {
+    try {
+      const idTarefa = req.params.id
+      // Atualiza o status da tarefa para concluída
+      await Tarefas.update(
+        { concluida: "Sim" },
+        { where: { id_tarefa: idTarefa } }
+      )
+      res.redirect("/atividades-do-dia") // Redireciona de volta para a página de atividades do dia
+    } catch (error) {
+      console.error(error)
+      res.status(500).send("Erro ao marcar tarefa como concluída")
+    }
+  }
+)
+
+rotas.post("/deletar-tarefa/:id", autenticacaoUsuario, async (req, res) => {
+  try {
+    const idTarefa = req.params.id
+    // Deleta a tarefa do banco de dados
+    await Tarefas.destroy({ where: { id_tarefa: idTarefa } })
+    res.redirect("/atividades-do-dia") // Redireciona de volta para a página de atividades do dia
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("Erro ao deletar tarefa")
+  }
+})
+
+// Rota para marcar uma meta como concluída
+rotas.post(
+  "/marcar-meta-concluida/:id",
+  autenticacaoUsuario,
+  async (req, res) => {
+    try {
+      const idMeta = req.params.id
+      // Atualiza o status da meta para concluída
+      await Metas.update({ concluida: "sim" }, { where: { id_metas: idMeta } })
+      res.redirect("/atividades-do-dia") // Redireciona de volta para a página de atividades do dia
+    } catch (error) {
+      console.error(error)
+      res.status(500).send("Erro ao marcar meta como concluída")
+    }
+  }
+)
+
+// Rota para mostrar as metas concluídas
+rotas.get(
+  "/mostrar-metas-concluidas",
+  autenticacaoUsuario,
+  async (req, res) => {
+    const userId = req.user.id_usuario
+    try {
+      // Busca as metas marcadas como concluídas
+      const metasConcluidas = await Metas.findAll({
+        where: { fk_id_usuario: req.user.id_usuario, concluida: "sim" },
+      })
+      // Renderiza a página com as metas concluídas
+      res.render("metas_concluidas", { metasConcluidas })
+    } catch (error) {
+      console.error(error)
+      res.status(500).send("Erro ao buscar metas concluídas")
+    }
+  }
+)
 module.exports = rotas
