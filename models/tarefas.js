@@ -17,9 +17,13 @@ const Tarefas = database.define("tarefas", {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  dia_tarefa: {
+    type: Sequelize.DATE,
+    allowNull: false,
+  },
   concluida: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   importancia: {
     type: Sequelize.STRING,

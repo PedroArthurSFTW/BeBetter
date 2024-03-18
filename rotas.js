@@ -1,7 +1,7 @@
 const express = require("express")
 const rotas = express.Router()
 const bcrypt = require("bcrypt")
-const Usuario = require("./models/usuario") // Verifique se o modelo Usuario está sendo importado corretamente
+const Usuario = require("./models/usuario")
 const habitos = require("./models/habitos")
 const session = require("express-session")
 const passport = require("passport")
@@ -51,7 +51,7 @@ passport.use(
 )
 
 passport.serializeUser(function (usuario, done) {
-  done(null, usuario.id_usuario) // Certifique-se de usar uma propriedade única do usuário como identificador
+  done(null, usuario.id_usuario)
 })
 
 passport.deserializeUser(async function (id, done) {
@@ -119,23 +119,21 @@ rotas.post("/registrarhabitos", autenticacaoUsuario, async (req, res) => {
   }
 })
 
-rotas.get("/testgetus", async (req, res) => {
-  try {
-    const usuarios = await Usuario.findAll()
-    res.status(201).json(usuarios)
-  } catch (error) {
-    console.error(error)
-    res.status(500).send("Erro ao obter usuários")
-  }
+rotas.get("/registrartarefa", autenticacaoUsuario, (req, res) => {
+  res.render("criar_tarefas")
 })
 
-rotas.get("/testgethab", async (req, res) => {
+rotas.post("/registrartarefa", autenticacaoUsuario, async (req, res) => {
+  const novoHabitos = req.body
   try {
-    const habitos = await habitos.findAll()
-    res.status(201).json(habitos)
+    novoHabitos.fk_id_usuario = req.user.id_usuario
+    console.log(req.user.id_usuario)
+    console.log(novoHabitos)
+    await habitos.create(novoHabitos)
+    res.redirect("/log")
   } catch (error) {
     console.error(error)
-    res.status(500).send("Erro ao obter hábitos")
+    res.status(500).send("Erro ao registrar hábitos")
   }
 })
 
