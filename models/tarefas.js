@@ -31,7 +31,7 @@ const Tarefas = database.define("tarefas", {
   },
 })
 
-Habitos.belongsTo(Usuario, {
+Tarefas.belongsTo(Usuario, {
   constraint: true,
   foreignKey: "fk_id_usuario",
 })

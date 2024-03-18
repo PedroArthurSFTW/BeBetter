@@ -13,13 +13,17 @@ const Metas = database.define("metas", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  descrica_meta: {
+  descricao_meta: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  concluida: {
     type: Sequelize.STRING,
     allowNull: true,
   },
 })
 
-Habitos.belongsTo(Usuario, {
+Metas.belongsTo(Usuario, {
   constraint: true,
   foreignKey: "fk_id_usuario",
 })

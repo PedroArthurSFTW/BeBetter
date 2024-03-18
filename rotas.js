@@ -3,6 +3,8 @@ const rotas = express.Router()
 const bcrypt = require("bcrypt")
 const Usuario = require("./models/usuario")
 const habitos = require("./models/habitos")
+const Tarefas = require("./models/tarefas")
+const Metas = require("./models/metas")
 const session = require("express-session")
 const passport = require("passport")
 const LocalStrategy = require("passport-local").Strategy
@@ -119,17 +121,35 @@ rotas.post("/registrarhabitos", autenticacaoUsuario, async (req, res) => {
   }
 })
 
-rotas.get("/registrartarefa", autenticacaoUsuario, (req, res) => {
+rotas.get("/registro_tarefa", autenticacaoUsuario, (req, res) => {
   res.render("criar_tarefas")
 })
 
 rotas.post("/registrartarefa", autenticacaoUsuario, async (req, res) => {
-  const novoHabitos = req.body
+  const novaTarefa = req.body
   try {
-    novoHabitos.fk_id_usuario = req.user.id_usuario
+    novaTarefa.fk_id_usuario = req.user.id_usuario
     console.log(req.user.id_usuario)
-    console.log(novoHabitos)
-    await habitos.create(novoHabitos)
+    console.log(novaTarefa)
+    await Tarefas.create(novaTarefa)
+    res.redirect("/log")
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("Erro ao registrar hábitos")
+  }
+})
+
+rotas.get("/registro_meta", autenticacaoUsuario, async (req, res) => {
+  res.render("criar_metas")
+})
+
+rotas.post("/criar_metas", autenticacaoUsuario, async (req, res) => {
+  const novaMetas = req.body
+  try {
+    novaMetas.fk_id_usuario = req.user.id_usuario
+    console.log(req.user.id_usuario)
+    console.log(novaMetas)
+    await Metas.create(novaMetas)
     res.redirect("/log")
   } catch (error) {
     console.error(error)
