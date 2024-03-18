@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt")
 const usuario = require("./models/usuario")
 const habitos = require("./models/habitos")
 const session = require("express-session")
+const passport = require("passport")
 var bodyParser = require("body-parser")
 
 rotas.use(bodyParser.json())
@@ -12,6 +13,15 @@ rotas.use(
     extended: true,
   })
 )
+rotas.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+)
+rotas.use(passport.initialize())
+rotas.use(passport.session())
 
 usuario.beforeCreate(async (usuario) => {
   const senhaCripto = await bcrypt.hash(usuario.senha, 10)
@@ -20,6 +30,9 @@ usuario.beforeCreate(async (usuario) => {
 rotas.post("/registrousuario", async (req, res) => {
   const novoUsuario = req.body
   await usuario.create(novoUsuario)
+  res.render("index")
+})
+rotas.get("/logar", (req, res) => {
   res.render("index")
 })
 
@@ -43,7 +56,18 @@ rotas.post("/logado", async (req, res) => {
   }
 })
 
-rotas.post("/registrarhabitos", async (req, res) => {
+function autenticacaoUsuario(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect("/logar")
+}
+
+rotas.get("/logado", autenticacaoUsuario, (req, res) => {
+  res.render(criar_habitos)
+})
+
+rotas.post("/registrarhabitos", autenticacaoUsuario, async (req, res) => {
   const novoHabitos = req.body
   await habitos.create(novoHabitos)
   res.render("index")
