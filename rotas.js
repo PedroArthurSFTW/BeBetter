@@ -78,7 +78,11 @@ rotas.post("/registrousuario", async (req, res) => {
 })
 
 rotas.get("/logar", (req, res) => {
-  res.render("index")
+  res.render("login")
+})
+
+rotas.get("/registrar", (req, res) => {
+  res.render("registro_usuario")
 })
 
 rotas.post(

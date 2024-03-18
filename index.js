@@ -1,6 +1,5 @@
 const express = require("express")
 const { Op } = require("sequelize")
-const Usuario = require("./models/usuario")
 var bodyParser = require("body-parser")
 const app = express()
 const path = require("path")
@@ -28,7 +27,7 @@ app.listen(3000, () => {
 })
 
 app.get("/", (req, res) => {
-  res.render("registro_usuario")
+  res.render("index")
 })
 
 async function excluirAtividadesAnteriores() {
