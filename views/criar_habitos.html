@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/registrarhabitos" method="post">
+      <label for="nomedohabito">Nome do Habito</label>
+      <input
+        type="text"
+        placeholder="Digite seu Habito"
+        id="nome_habito"
+        name="nome_habito"
+      />
+      <label for="dia_semana">Digite o dia da realização do seu Habito</label>
+      <input id="dia_semana" name="dia_semana" type="date" />
+      <label for="descricaohabito">Digite a descrição do seu Habito</label>
+      <input
+        type="text"
+        placeholder="Digite a descrição do seu Habito"
+        id="descricao_habito"
+        name="descricao_habito"
+      />
+      <button type="submit">Entre</button>
+    </form>
+    <form action="/log" method="get">
+      <button type="submit">Voltar</button>
+    </form>
+  </body>
+</html>

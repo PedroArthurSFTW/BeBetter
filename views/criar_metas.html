@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/criar_metas" method="post">
+      <label for="nomemeta">Nome da Meta</label>
+      <input
+        type="text"
+        placeholder="nome da meta"
+        id="nome_meta"
+        name="nome_meta"
+      />
+      <label for="desdescricaometa">Descrição da Meta</label>
+      <input
+        type="text"
+        placeholder="Descrição da Meta"
+        id="descricao_meta"
+        name="descricao_meta"
+      />
+      <button type="submit">Entre</button>
+    </form>
+    <form action="/log" method="get">
+      <button type="submit">Voltar</button>
+    </form>
+  </body>
+</html>

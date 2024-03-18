@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/registrartarefa" method="post">
+      <label for="nometarefa">Nome da Tarefa</label>
+      <input
+        type="text"
+        placeholder="Digite seu Habito"
+        id="nome_tarefa"
+        name="nome_tarefa"
+      />
+      <label for="dia_tarefa">Digite o dia da realização do seu Habito</label>
+      <input id="dia_tarefa" name="dia_tarefa" type="date" />
+      <label for="descricaohabito">Digite a descrição do seu Habito</label>
+      <input
+        type="text"
+        placeholder="Digite a descrição do seu Habito"
+        id="descricao_tarefa"
+        name="descricao_tarefa"
+      />
+      <label for="importanciatarefa">Qual a Importancia da Tarefa</label>
+      <input
+        type="text"
+        placeholder="Inportancia da Tarefa"
+        id="importancia"
+        name="importancia"
+      />
+      <button type="submit">Entre</button>
+    </form>
+    <form action="/log" method="get">
+      <button type="submit">Voltar</button>
+    </form>
+  </body>
+</html>
