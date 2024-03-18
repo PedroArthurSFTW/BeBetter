@@ -81,10 +81,18 @@ rotas.get("/logar", (req, res) => {
 rotas.post(
   "/logado",
   passport.authenticate("local", {
-    successRedirect: "/criar_habitos",
+    successRedirect: "/log",
     failureRedirect: "/logar",
   })
 )
+
+rotas.get("/log", autenticacaoUsuario, (req, res) => {
+  res.render("menu")
+})
+
+rotas.get("/registro_habito", autenticacaoUsuario, (req, res) => {
+  res.render("criar_habitos")
+})
 
 function autenticacaoUsuario(req, res, next) {
   if (req.isAuthenticated()) {
@@ -104,7 +112,7 @@ rotas.post("/registrarhabitos", autenticacaoUsuario, async (req, res) => {
     console.log(req.user.id_usuario)
     console.log(novoHabitos)
     await habitos.create(novoHabitos)
-    res.render("criar_habitos")
+    res.redirect("/log")
   } catch (error) {
     console.error(error)
     res.status(500).send("Erro ao registrar hábitos")
