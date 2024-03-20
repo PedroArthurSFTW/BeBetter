@@ -30,26 +30,6 @@
       <button type="submit">Mostrar Metas Concluídas</button>
     </form>
 
-    <!-- Metas concluídas (inicialmente ocultas) 
-    <div id="metas-concluidas" style="display: none">
-      <h2>Metas Concluídas</h2>
-      <ul>
-        <% metasConcluidas.forEach(metas => { %>
-        <li>
-          <%= metas.nome_meta %> <% if (metas.descricao_meta) { %> - <%=
-          metas.descricao_meta %> <% } %>
-        </li>
-        <% }); %>
-      </ul>
-    </div>
-
-    <script>
-      // Função para mostrar metas concluídas quando o botão for clicado
-      function mostrarMetasConcluidas() {
-        document.getElementById("metas-concluidas").style.display = "block"
-      }
-    </script>-->
-
     <h2>Tarefas</h2>
     <ul>
       <% tarefas.forEach(tarefa => { %>
