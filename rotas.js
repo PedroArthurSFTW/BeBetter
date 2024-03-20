@@ -242,14 +242,7 @@ rotas.get("/atividades-do-dia", autenticacaoUsuario, async (req, res) => {
 
     // Busca os hábitos do usuário para o dia atual
     const habito = await habitos.findAll({
-      where: Sequelize.and(
-        Sequelize.where(
-          Sequelize.fn("DATE", Sequelize.col("dia_semana")),
-          "=",
-          Sequelize.fn("CURDATE")
-        ),
-        { fk_id_usuario: userId }
-      ),
+      where: { fk_id_usuario: userId },
     })
 
     // Busca as metas não concluídas do usuário para o dia atual
@@ -343,4 +336,15 @@ rotas.get(
     }
   }
 )
+rotas.post("/deletar-habito/:id", autenticacaoUsuario, async (req, res) => {
+  try {
+    const idHabito = req.params.id
+    // Deleta o hábito do banco de dados
+    await habitos.destroy({ where: { id_habitos: idHabito } })
+    res.redirect("/atividades-do-dia") // Redireciona de volta para a página de atividades do dia
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("Erro ao deletar hábito")
+  }
+})
 module.exports = rotas
