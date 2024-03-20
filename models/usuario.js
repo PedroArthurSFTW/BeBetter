@@ -29,6 +29,20 @@ const Usuario = database.define("usuario", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  confirmed: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false, // Por padrão, o usuário não está confirmado
+  },
+  confirmationToken: {
+    type: Sequelize.STRING,
+    allowNull: true,
+    unique: true,
+  },
+  confirmationExpires: {
+    type: Sequelize.DATE,
+    allowNull: true,
+  },
 })
 
 module.exports = Usuario

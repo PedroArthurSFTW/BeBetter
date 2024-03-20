@@ -9,8 +9,19 @@ const Metas = require("./models/metas")
 const session = require("express-session")
 const passport = require("passport")
 const LocalStrategy = require("passport-local").Strategy
-
+const nodemailer = require("nodemailer")
+const uuid = require("uuid")
 var bodyParser = require("body-parser")
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "confirmacaobebetter@gmail.com",
+    pass: "aexwjvmnbbvlhbwr",
+  },
+})
 
 rotas.use(bodyParser.json())
 rotas.use(
@@ -45,6 +56,10 @@ passport.use(
         if (!senhaValida) {
           return done(null, false, { message: "Senha incorreta" })
         }
+        // Verificar se o e-mail do usuário foi confirmado
+        if (!usuarioEncontrado.confirmed) {
+          return done(null, false, { message: "E-mail ainda não confirmado" })
+        }
         return done(null, usuarioEncontrado)
       } catch (err) {
         return done(err)
@@ -69,14 +84,60 @@ passport.deserializeUser(async function (id, done) {
 Usuario.beforeCreate(async (usuario) => {
   const senhaCripto = await bcrypt.hash(usuario.senha, 10)
   usuario.senha = senhaCripto
+  //usuario.confirmationToken = uuid.v4() // Gerar token de confirmação
+  const expirationDate = new Date()
+  expirationDate.setDate(expirationDate.getDate() + 1) // Definir expiração para 1 dia no futuro
+  usuario.confirmationExpires = expirationDate
 })
 
 rotas.post("/registrousuario", async (req, res) => {
   const novoUsuario = req.body
+  const confirmationToken = uuid.v4()
+  novoUsuario.confirmationToken = confirmationToken
   await Usuario.create(novoUsuario)
-  res.render("index")
+  const mailOptions = {
+    from: "confirmacaobebetter@gmail.com",
+    to: novoUsuario.email,
+    subject: "Confirmação de Registro",
+    text: `Clique neste link para confirmar seu registro: http://localhost:3000/confirm/${confirmationToken}`,
+  }
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log("Email enviado: " + info.response)
+    }
+  })
+  res.redirect("/logar")
 })
+rotas.get("/confirm/:token", async (req, res) => {
+  const { token } = req.params
 
+  try {
+    // Procurar o usuário com o token de confirmação no banco de dados
+    const usuario = await Usuario.findOne({
+      where: { confirmationToken: token },
+    })
+
+    // Se o usuário não for encontrado ou o token estiver expirado
+    if (!usuario || usuario.confirmationExpires < new Date()) {
+      return res
+        .status(400)
+        .send("O token de confirmação é inválido ou expirou.")
+    }
+
+    // Marcar o usuário como confirmado e limpar o token e a data de expiração
+    usuario.confirmed = true
+    usuario.confirmationToken = null
+    usuario.confirmationExpires = null
+    await usuario.save()
+
+    return res.send("Sua conta foi confirmada com sucesso!")
+  } catch (error) {
+    console.error(error)
+    return res.status(500).send("Ocorreu um erro ao confirmar sua conta.")
+  }
+})
 rotas.get("/logar", (req, res) => {
   res.render("login")
 })
