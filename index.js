@@ -6,7 +6,7 @@ const path = require("path")
 const rotas = require("./rotas")
 const sequelize = require("./db")
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync().then(() => {
   console.log("Banco conectado")
 })
 
