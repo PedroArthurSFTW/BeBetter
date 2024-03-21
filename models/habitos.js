@@ -13,10 +13,6 @@ const Habitos = database.define("habitos", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  dia_semana: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
   descricao_habito: {
     type: Sequelize.STRING,
     allowNull: true,
