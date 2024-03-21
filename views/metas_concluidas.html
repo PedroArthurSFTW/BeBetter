@@ -5,7 +5,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Metas não concluídas</title>
+    <title>Metas Concluídas</title>
     <link
       rel="shortcut icon"
       href="../public/assets/bebetterbro.png"
@@ -16,6 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
   <body>
     <!DOCTYPE html>
@@ -26,14 +27,29 @@
         <title>Metas Concluídas</title>
       </head>
       <body>
-        <h1>Metas Concluídas</h1>
-        <ul>
-          <% metasConcluidas.forEach(metas => { %>
-          <li><%= metas.nome_meta %> - <%= metas.descricao_meta %></li>
-          <% }); %>
-        </ul>
+        <div class="container">
+          <h1>
+            <i
+              class="ph ph-archive"
+              style="font-size: 3.2rem; color: #7221c2"
+            ></i
+            >Metas Concluídas
+          </h1>
+          <div class="divider"></div>
+          <ul>
+            <% metasConcluidas.forEach(metas => { %>
+            <li><%= metas.nome_meta %> - <%= metas.descricao_meta %></li>
+            <% }); %>
+          </ul>
+        </div>
         <form action="/atividades-do-dia" method="get">
-          <button type="submit">Voltar</button>
+          <button type="submit" class="primary">
+            <i
+              class="ph ph-arrow-u-up-left"
+              style="font-size: 1.6rem; color: #f2f8fd"
+            ></i
+            >Voltar
+          </button>
         </form>
       </body>
     </html>
