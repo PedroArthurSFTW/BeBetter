@@ -16,6 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
   <body>
     <div class="image">
@@ -24,52 +25,68 @@
         alt="Uma pessoa escalando uma montanha alta"
       />
     </div>
-    <div class="form">
-      <form action="/registrousuario" method="post">
-        <div class="input-wrapper">
-          <label for="nome">Nome</label>
-          <input
-            type="text"
-            placeholder="João da Silva"
-            id="nome_usuario"
-            name="nome_usuario"
-          />
+    <div class="sign-up">
+      <div class="warning-confirmation">
+        <div class="title">
+          <i
+            class="ph-duotone ph-warning"
+            style="color: #d5cb58; font-size: 2.4rem"
+          ></i>
+          <h2>Aviso</h2>
         </div>
-        <div class="input-wrapper">
-          <label for="login-user-idade">Idade</label>
-          <input type="number" placeholder="45" id="idade" name="idade" />
+        <p>
+          Será necessário <strong>CONFIRMAR</strong> seu email pelo link
+          recebido. Verifique a caixa de <strong>SPAM</strong> ou
+          <strong>LIXO ELETRÔNICO</strong>
+        </p>
+      </div>
+      <div class="form">
+        <form action="/registrousuario" method="post">
           <div class="input-wrapper">
-            <label for="genero">Gênero</label>
-            <select name="genero" id="genero">
-              <option value="masculino">Homem</option>
-              <option value="feminino">Mulher</option>
-              <option value="nenhum">Prefiro Não Dizer</option>
-            </select>
+            <label for="nome">Nome</label>
+            <input
+              type="text"
+              placeholder="João da Silva"
+              id="nome_usuario"
+              name="nome_usuario"
+            />
           </div>
-        </div>
-        <div class="input-wrapper">
-          <label for="email">Email</label>
-          <input
-            type="text"
-            placeholder="joaodasilva@email.com"
-            id="email"
-            name="email"
-          />
-        </div>
-        <div class="input-wrapper">
-          <label for="login-user-password">Senha</label>
-          <input
-            type="password"
-            placeholder="********"
-            id="senha"
-            name="senha"
-          />
-        </div>
-        <button type="submit" class="primary">registrar</button>
-      </form>
-      <form action="/" method="get" class="no-border">
-        <button type="submit">Voltar</button>
-      </form>
+          <div class="input-wrapper">
+            <label for="login-user-idade">Idade</label>
+            <input type="number" placeholder="45" id="idade" name="idade" />
+            <div class="input-wrapper">
+              <label for="genero">Gênero</label>
+              <select name="genero" id="genero">
+                <option value="masculino">Homem</option>
+                <option value="feminino">Mulher</option>
+                <option value="nenhum">Prefiro Não Dizer</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              placeholder="joaodasilva@email.com"
+              id="email"
+              name="email"
+            />
+          </div>
+          <div class="input-wrapper">
+            <label for="login-user-password">Senha</label>
+            <input
+              type="password"
+              placeholder="********"
+              id="senha"
+              name="senha"
+            />
+          </div>
+          <button type="submit" class="primary">registrar</button>
+        </form>
+        <form action="/" method="get" class="no-border">
+          <button type="submit">Voltar</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>

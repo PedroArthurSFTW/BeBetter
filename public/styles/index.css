@@ -36,6 +36,11 @@ button {
   border-radius: 0.8rem;
 }
 
+button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 .container {
   max-width: 1320px;
   margin: 0 auto;
