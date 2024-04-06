@@ -132,7 +132,7 @@ rotas.get("/confirm/:token", async (req, res) => {
     usuario.confirmationExpires = null
     await usuario.save()
 
-    return res.send("Sua conta foi confirmada com sucesso!")
+    return res.render("tela_confirmacao")
   } catch (error) {
     console.error(error)
     return res.status(500).send("Ocorreu um erro ao confirmar sua conta.")
