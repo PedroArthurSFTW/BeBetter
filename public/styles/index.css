@@ -19,12 +19,24 @@ body {
   min-height: 100vh;
   font-family: "Inter", sans-serif;
 
+  font-size: 1.6rem;
+
+  padding: 2rem 0 0 0;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 /* INDEX */
+
+#counter {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+
+  font-size: 1.6rem;
+}
 
 button {
   border: none;
@@ -44,6 +56,7 @@ button:hover {
 .container {
   max-width: 1320px;
   margin: 0 auto;
+  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -58,10 +71,6 @@ button:hover {
 
 header {
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-
-header .container {
-  padding: 2rem 0;
 }
 
 header .image img {
@@ -112,5 +121,44 @@ main .text p {
 /* FOOTER */
 
 footer {
+  font-size: 2.4rem;
   text-align: center;
+}
+
+@media (max-width: 830px) {
+  main .image {
+    display: none;
+  }
+
+  main .container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 570px) {
+  body {
+    font-size: 1rem;
+  }
+
+  header .title {
+    font-size: 2.4rem;
+  }
+
+  header img {
+    width: 2.4rem;
+  }
+
+  p {
+    font-size: 1.4rem;
+  }
+
+  footer {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 470px) {
+  header .buttons {
+    display: none;
+  }
 }
