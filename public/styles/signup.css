@@ -18,9 +18,14 @@
 body {
   background-color: var(--blue100);
   display: flex;
+  align-items: center;
   gap: 6.4rem;
 
+  padding: 2rem;
+
   font-family: "Inter", sans-serif;
+
+  min-height: 100vh;
 }
 
 img {
@@ -35,10 +40,24 @@ img {
   }
 }
 
-@media (max-height: 1024px) {
+@media (max-width: 1200px) {
+  body {
+    display: block;
+  }
+
   .image img {
-    width: auto;
-    height: 100vh;
+    display: none;
+  }
+
+  .sign-up,
+  .warning-confirmation {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 425px) {
+  .form form {
+    padding: 1rem 2rem 0 2rem;
   }
 }
 
