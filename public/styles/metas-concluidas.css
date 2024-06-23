@@ -26,6 +26,11 @@ body {
   padding-top: 4rem;
 }
 
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
 h1 {
   font-size: 3.2rem;
   display: flex;
@@ -69,4 +74,14 @@ ul {
 
   display: flex;
   gap: 0.8rem;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding-top: 7.2rem;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
 }
