@@ -20,7 +20,7 @@ body {
   background-color: var(--blue100);
   color: #333;
 
-  padding-top: 2rem;
+  padding-top: 3.2rem;
 }
 
 h1 {
@@ -29,12 +29,13 @@ h1 {
 }
 
 .container {
-  max-width: 1320px;
+  max-width: 90%;
   margin: 4.8rem auto;
 
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 3.2rem;
 }
 
 .metas,
@@ -117,4 +118,14 @@ button:hover {
 
   display: flex;
   gap: 0.8rem;
+}
+
+@media (max-width: 720px) {
+  body {
+    padding-top: 7.2rem;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+  }
 }
